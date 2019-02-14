@@ -13,38 +13,48 @@
 		"replyToken" => $sender_replyToken,
 		"messages" => array (
 			array (
-				"type" => "template",
-				"altText" => "this is a buttons template",
-				"template" => array (
-					"type" => "buttons",
-					"thumbnailImageUrl" => "https://www.w3schools.com/css/paris.jpg",
-					"title" => "Menu",
-					"text" => "Please select",
-					"actions" => array (
+				"type" => "text",
+				"text" => "請試用quick replies功能",
+				"quickReply" => array (
+					"items" => array (
 						array (
-							"type" => "postback",
-							"label" => "Buy",
-							"data" => "action=buy&itemid=123"
+							"type" => "action",
+							"imageUrl" => "https://sporzfy.com/chtuser1/apple.png",
+							"action" => array (
+								"type" => "message",
+								"label"=> "Apple",
+								"text" => "這是一個Apple"
+							)
 						),
 						array (
-							"type" => "message",
-							"label" => "Return",
-							"text" => "This is text"
-						),
-						array (
-							"type" => "datetimepicker",
-							"label" => "Select date",
-							"data" => "storeId=12345",
-							"mode" => "datetime",
-							"initial" => "2017-12-25t00:00",
-							"max" => "2018-01-24t23:59",
-							"min" => "2017-12-25t00:00"
+                            "type" => "action",
+                            "imageUrl" => "https://sporzfy.com/chtuser1/placeholder.png",
+                            "action" => array (
+                                "type" => "location",
+                                "label"=> "請選擇位置"
+                            )
+                        ),
+                        array (
+                            "type" => "action",
+                            "imageUrl" => "https://sporzfy.com/chtuser1/camera.png",
+                            "action" => array (
+                                "type" => "camera",
+                                "label"=> "啟動相機"
+                            )
+                        ),
+                        array (
+                            "type" => "action",
+                            "imageUrl" => "https://sporzfy.com/chtuser1/picture.png",
+                            "action" => array (
+                                "type" => "cameraRoll",
+                                "label"=> "啟動相簿"
+                            )
 						)
 					)
-				)
-	  		)
+				)	
+			)
 		)
-  	);
+	);
   
     fwrite($myfile, "\xEF\xBB\xBF".json_encode($response)); //在字串前面加上\xEF\xBB\xBF轉成utf8格式
     $header[] = "Content-Type: application/json";
