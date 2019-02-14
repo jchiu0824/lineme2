@@ -1,3 +1,4 @@
+<?php
     $json_str = file_get_contents('php://input'); //接收request的body
     $json_obj = json_decode($json_str); //轉成json格式
   
@@ -20,7 +21,7 @@
   
     fwrite($myfile, "\xEF\xBB\xBF".json_encode($response)); //在字串前面加上\xEF\xBB\xBF轉成utf8格式
     $header[] = "Content-Type: application/json";
-    $header[] = "Authorization: Bearer R3BJ8ARpdwTfAwKPgmq2xfmwWh5MgTnGan4tfdB8fu3MrHlqSjaMKnLiH+5+9YXX2r4arKqpB1P5fdG+DiOXtjVcz1F0CgwjhHg8Be0FNlVRus2RpdfLIL0izDjCfcPC75QhTVHOtonSmog7JVk8wQdB04t89/1O/w1cDnyilFU=";
+    $header[] = "Authorization: Bearer gd1gyH+Pc5TROu9ku5u/5tDvFnffsU8nXU69zXuhTgE0dIS5nVGmx9Js8PwijeUqgFuwWXzyJ14/N5FUmp/UXsmSJbUsxMGA6AW1gozlf6cbEgSGLiC02BEaRa5wUSqE7df8FOANP1WjPW8Mh/TgtwdB04t89/1O/w1cDnyilFU=";
     $ch = curl_init("https://api.line.me/v2/bot/message/reply");
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));                                                                  
@@ -28,3 +29,4 @@
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);                                                                                                   
     $result = curl_exec($ch);
     curl_close($ch);
+?>
