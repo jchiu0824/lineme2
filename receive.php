@@ -7,16 +7,20 @@
 
     $sender_userid = $json_obj->events[0]->source->userId; //取得訊息發送者的id
     $sender_txt = $json_obj->events[0]->message->text; //取得訊息內容
+    $sender_replyToken = $json_obj->events[0]->replyToken; //��硋�𡑒�𦠜�舐�replyToken
   
-    $response = array (
-        "to" => $sender_userid,
-        "messages" => array (
-            array (
-                "type" => "text",
-                "text" => "Hello. You say". $sender_txt
-            )
-        )
-    );
+    if($sender_txt == "a12") {
+	      $response = array (
+		        "replyToken" => $sender_replyToken,
+		        "messages" => array (
+		        array (
+			          "type" => "sticker",
+			          "packageId" => "1",
+			          "stickerId" => "2573"
+		        )
+		    )
+	    );
+    }
   
     fwrite($myfile, "\xEF\xBB\xBF".json_encode($response)); //在字串前面加上\xEF\xBB\xBF轉成utf8格式
     $header[] = "Content-Type: application/json";
