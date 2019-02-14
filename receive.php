@@ -9,31 +9,42 @@
     $sender_txt = $json_obj->events[0]->message->text; //取得訊息內容
     $sender_replyToken = $json_obj->events[0]->replyToken; //取得訊息的replyToken
   
-    if($sender_txt == "貼圖") {
-	      $response = array (
-		        "replyToken" => $sender_replyToken,
-		        "messages" => array (
-		        array (
-			          "type" => "sticker",
-			          "packageId" => "1",
-			          "stickerId" => "1"
-		        )
-		    )
-	    );
-    } else {
-        $response = array (
-            "replyToken" => $sender_replyToken,
-            "messages" => array (
-                array (
-                    "type" => "location",
-                    "title" => "my location",
-                    "address" => "〒150-0002 東京都渋谷区渋谷２丁目２１−１",
-                    "latitude" => 35.65910807942215,
-                    "longitude" => 139.70372892916203
-                )
-            )
-        );
-    }
+	$response = array (
+		"replyToken" => $sender_replyToken,
+		"messages" => array (
+			array (
+				"type" => "template",
+				"altText" => "this is a buttons template",
+				"template" => array (
+					"type" => "buttons",
+					"thumbnailImageUrl" => "https://www.w3schools.com/css/paris.jpg",
+					"title" => "Menu",
+					"text" => "Please select",
+					"actions" => array (
+						array (
+							"type" => "postback",
+							"label" => "Buy",
+							"data" => "action=buy&itemid=123"
+						),
+						array (
+							"type" => "message",
+							"label" => "Return",
+							"text" => "This is text"
+						),
+						array (
+							"type" => "datetimepicker",
+							"label" => "Select date",
+							"data" => "storeId=12345",
+							"mode" => "datetime",
+							"initial" => "2017-12-25t00:00",
+							"max" => "2018-01-24t23:59",
+							"min" => "2017-12-25t00:00"
+						)
+					)
+				)
+	  		)
+		)
+  	);
   
     fwrite($myfile, "\xEF\xBB\xBF".json_encode($response)); //在字串前面加上\xEF\xBB\xBF轉成utf8格式
     $header[] = "Content-Type: application/json";
